@@ -1,0 +1,118 @@
+using EmployeeManagementSystem.Models;
+using EmployeeManagementSystem.Models.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+
+namespace EmployeeManagementSystem.Controllers
+{
+	public class EmployeeController : Controller
+	{
+		private readonly ApplicationDbContext _db;
+		public EmployeeController(ApplicationDbContext db)
+		{
+			_db = db;
+			_db.EmployeeDetails.Include(u => u.Roles);
+		}
+
+		public IActionResult Index()
+		{
+			return View();
+		}
+
+		//Get Upsert
+		public IActionResult Upsert(int? id)
+		{
+			EmployeeDetails employee = new();
+			IEnumerable<SelectListItem> RolesList = _db.Roles.ToList().Select(
+				u => new SelectListItem
+				{
+					Text = u.Name,
+					Value = u.Id.ToString(),
+				}
+			);
+			if (id == null || id == 0)
+			{
+				//Create Employee
+				ViewBag.RolesList = RolesList;
+				return View(employee);
+			}
+			else
+			{
+				var Edata = _db.EmployeeDetails.Find(id);
+				ViewBag.RolesList = RolesList;
+				return View(Edata);
+				//Update Employee
+			}
+
+		}
+
+		//Post Upsert
+		[HttpPost]
+		public IActionResult Upsert(EmployeeDetails obj)
+		{
+			if (ModelState.IsValid)
+			{
+				if (obj.Id == 0)
+				{
+					_db.EmployeeDetails.Add(obj);
+				}
+				else
+				{
+					_db.EmployeeDetails.Update(obj);
+				}
+				_db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View(obj);
+		}
+
+		//Get Delete
+		public IActionResult Delete(int? id)
+		{
+			EmployeeDetails employee = new();
+			IEnumerable<SelectListItem> RolesList = _db.Roles.ToList().Select(
+				u => new SelectListItem
+				{
+					Text = u.Name,
+					Value = u.Id.ToString(),
+				});
+
+			var Employeedelete = _db.EmployeeDetails.Find(id);
+			ViewBag.RolesList = RolesList;
+			return View(Employeedelete);
+		}
+
+		//Post Delete
+		[HttpPost, ActionName("Delete")]
+		public IActionResult DeletePOST(int? id)
+		{
+			var obj = _db.EmployeeDetails.Find(id);
+			if (obj == null)
+			{
+				return NotFound();
+			}
+
+			_db.EmployeeDetails.Remove(obj);
+			_db.SaveChanges();
+			return RedirectToAction("Index");
+
+		}
+
+
+
+
+		#region API CALLS
+
+		[HttpGet]
+		public IActionResult GetAll()
+		{
+			var employeeList = _db.EmployeeDetails.Include(u => u.Roles).ToList();
+			return Json(new { data = employeeList });
+		}
+
+		#endregion
+
+
+	}
+}
