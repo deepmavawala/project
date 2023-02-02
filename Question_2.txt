@@ -1,0 +1,90 @@
+Employee Management System
+
+Add/Edi Employee Page
+
+===Add/Edit Employee Detail Page=======================
+
+Name : Rajesh
+Salary : 10000
+Description : I am Rajesh Muliya and I am dot.net develooper etc...........
+Role : (Checkbox List) - Mulitiple Selection
+HOD
+Manager
+Team Lead
+Developer
+Trainee
+
+===== =======
+Save Cancel
+===== =======
+
+
+-=-=-List View=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-
+
+Filter by
+Name : Rajesh
+Salary : 10000
+Role - Single Selection only for Filters - Dropdwon
+
+===== =======
+Search Reset
+===== =======
+
+
+EmployeeID Name Salary Description Role(Comma separted Display) Action
+1 Rajesh 10000 I am muliya... Team Lead,Developer Edit/Delete
+2 Karan 15000 I am karan... Team Lead,HOD Edit/Delete
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-==-==
+
+ 
+
+We have RoleType Table - Direct Add Record in a table - No need to perform crud operation for that
+Note : If we add record in below table then it is diplay on Employee ADD/EDIT Page
+
+ID Role
+1 HOD
+2 Manager
+3 Team Lead
+4 Developer
+5 Trainee
+
+ 
+
+
+- We will provide you the database details.
+- Create a database with your name e.g. ABC_practicals.
+- Create a table called EmployeeDetail
+- Consider the below fields for above table
++ EmployeeId
++ Name
++ Description
++ Salary
++ Role
++ IsActive
++ CreatedOn
++ ModifiedOn
+
+
+- you need to perform below task
+
++ Create a page & display list of employee with Role(comma separated role).
++ Add a link button for adding new Employee above Employee List
++ List have 3 buttons
+* Edit
+* Delete
+* Active/Inactive (show according current status)
+
+
+- Use Scaffold CRUD for Catgeory
+- Employee Add/edit page have Checkbox list to select mulitple Role from RoleType Table.
+- Get All Role from RoleType Table and then use in Employee Add/Edit
+- After successfully added/Updated list must be refreshed.
+- Listing page have filter option by Name ,Salary & Role
+- Validation must be fire before posting to server.
+- Use bootstrap class for look & feel.
+
+
+- You have 8 hours for the practicals
+
+******************************** All The Best ********************************
